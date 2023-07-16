@@ -46,29 +46,42 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
                         child: TextField(
                           controller: _textController,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Enter town'),
+                          decoration: InputDecoration(
+                              border: const OutlineInputBorder(),
+                              hintText: 'Enter town',
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    _textController.clear();
+                                  },
+                                  icon: const Icon(Icons.clear),
+                              )
+                          ),
                         ),
                       ),
                       const SizedBox(height: 50),
                       Text(state.toString(),
                           style: const TextStyle(fontSize: 35)),
+
                       const SizedBox(height: 50),
+
                       IconButton(
                           onPressed: () {
-                            bloc.add(CalculIncrementEvent("BTC"));
+                            bloc.add(CalculIncrementEvent(
+                                "_textController.value.toString()"
+                            ));
                           },
                           icon: const Icon(
-                            Icons.add_circle_sharp,
-                          )),
+                            Icons.add_circle_sharp,)
+                      ),
+
                       const SizedBox(height: 50),
+
                       IconButton(
                           onPressed: () async {
                             await getHttp("BTC");
                           },
                           icon: const Icon(Icons.ac_unit_outlined)),
-                      if (state == "100" || state == "-100") const Text("HHH"),
+                      if (state == "null" || state == "-100") const Text("HHH"),
                     ],
                   ),
                 ),
