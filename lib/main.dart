@@ -66,8 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       IconButton(
                           onPressed: () {
-                            bloc.add(CalculIncrementEvent(
-                                "_textController.value.toString()"
+                            bloc.add(
+                                CalculIncrementEvent(
+                                _textController.value.text.toString()
                             ));
                           },
                           icon: const Icon(
@@ -81,7 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             await getHttp("BTC");
                           },
                           icon: const Icon(Icons.ac_unit_outlined)),
-                      if (state == "null" || state == "-100") const Text("HHH"),
+
+                      if (state == "null")
+                        const Text("Вы ничего не ввели"),
                     ],
                   ),
                 ),
