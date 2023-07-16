@@ -1,19 +1,17 @@
 import 'package:bloc/bloc.dart';
+import 'package:untitled2/net/get_picture.dart';
 
 part 'calcur_event.dart';
 part 'calcur_state.dart';
 
-class CalcurBloc extends Bloc<CalcurEvent, int> {
-  CalcurBloc() : super(5) {
+class CalcurBloc extends Bloc<CalcurEvent, String> {
+  CalcurBloc() : super("101") {
     on<CalculIncrementEvent> (_onInc);
-    on<CalculDecrementEvent> (_onDec);
   }
 
-  _onInc(CalculIncrementEvent event, Emitter<int> emit) async {
-    emit(state + 1);
-  }
+  _onInc(CalculIncrementEvent event, Emitter<String> emit) async {
+    final townResponse = await getHttp(event.town);
 
-  _onDec(CalculDecrementEvent event, Emitter<int> emit) {
-    emit(state - 1);
+    emit(townResponse.toString());
   }
 }

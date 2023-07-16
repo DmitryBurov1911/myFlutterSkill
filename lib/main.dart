@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/calculate/calcur_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled2/net/get_picture.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,48 +27,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CalcurBloc>(
         create: (context) => CalcurBloc(),
-        child: BlocBuilder<CalcurBloc, int>(
+        child: BlocBuilder<CalcurBloc, String>(
           builder: (context, state) {
             var bloc = BlocProvider.of<CalcurBloc>(context);
             return Scaffold(
-              body: Padding(
+                body: Padding(
                 padding: const EdgeInsets.only(top: 80),
                 child: Center(
                   child: Column(
                     children: [
-                      Text(
-                          state.toString(),
-                          style: const TextStyle(fontSize: 50)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+                        child: TextField(
+                          controller: _textController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Enter town'),
+                        ),
                       ),
-
                       const SizedBox(height: 50),
-
+                      Text(state.toString(),
+                          style: const TextStyle(fontSize: 35)),
+                      const SizedBox(height: 50),
                       IconButton(
                           onPressed: () {
-                            bloc.add(CalculIncrementEvent());
+                            bloc.add(CalculIncrementEvent("BTC"));
                           },
-                          icon: const Icon(Icons.add_circle_sharp,)
-                      ),
-
+                          icon: const Icon(
+                            Icons.add_circle_sharp,
+                          )),
                       const SizedBox(height: 50),
-
                       IconButton(
-                          onPressed: () {
-                            bloc.add(CalculDecrementEvent());
+                          onPressed: () async {
+                            await getHttp("BTC");
                           },
-                          icon: const Icon(Icons.dangerous_outlined,)
-                      ),
+                          icon: const Icon(Icons.ac_unit_outlined)),
+                      if (state == "100" || state == "-100") const Text("HHH"),
                     ],
                   ),
                 ),
-              )
-            );
+              ));
           },
-        )
-    );
+        ));
   }
 }

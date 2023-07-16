@@ -2,6 +2,8 @@ part of 'calcur_bloc.dart';
 
 abstract class CalcurEvent {}
 
-class CalculIncrementEvent extends CalcurEvent {}
+class CalculIncrementEvent extends CalcurEvent {
+  String town;
 
-class CalculDecrementEvent extends CalcurEvent {}
+  CalculIncrementEvent(this.town);
+}
