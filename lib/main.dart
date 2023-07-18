@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.yellowAccent,
-          appBarTheme: AppBarTheme(color: Colors.yellow),
+          appBarTheme: const AppBarTheme(color: Colors.yellow),
+          textTheme: const TextTheme(
+              titleMedium: TextStyle(color: Colors.black87, fontSize: 25),
+              titleSmall: TextStyle(color: Colors.black45, fontSize: 18)
+          ),
       ),
     );
   }
@@ -32,12 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final _textController = TextEditingController();
 
   void showToast(BuildContext context) {
-    final snackBar = SnackBar(content: Text("Added to favorites"));
+    var snackBar = const SnackBar(content: Text("Added to favorites"));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BlocProvider<CalcurBloc>(
         create: (context) => CalcurBloc(),
         child: BlocBuilder<CalcurBloc, String>(
@@ -45,7 +51,21 @@ class _MyHomePageState extends State<MyHomePage> {
             var bloc = BlocProvider.of<CalcurBloc>(context);
             return Scaffold(
               appBar: AppBar(
+                title: Text(
+                  "FreeWeather",
+                  style: theme.textTheme.titleMedium,
+                ),
+                centerTitle: true,
                 elevation: 0,
+                actions: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.star,
+                        color: Colors.black,
+                      ),
+                  ),
+                ],
               ),
                 body: Center(
                   child: Column(
@@ -57,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                               hintText: 'Enter town',
+                              hintStyle: theme.textTheme.titleSmall,
                               suffixIcon: IconButton(
                                 onPressed: () {
                                   _textController.clear();
