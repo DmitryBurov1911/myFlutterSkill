@@ -13,7 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const MyHomePage(),
-      theme: ThemeData(scaffoldBackgroundColor: Colors.yellow),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Colors.yellowAccent,
+          appBarTheme: AppBarTheme(color: Colors.yellow),
+      ),
     );
   }
 }
@@ -41,13 +44,14 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (context, state) {
             var bloc = BlocProvider.of<CalcurBloc>(context);
             return Scaffold(
-                body: Padding(
-                padding: const EdgeInsets.only(top: 80),
-                child: Center(
+              appBar: AppBar(
+                elevation: 0,
+              ),
+                body: Center(
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+                        padding: const EdgeInsets.fromLTRB(35, 35, 35, 0),
                         child: TextField(
                           controller: _textController,
                           decoration: InputDecoration(
@@ -61,10 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               )),
                         ),
                       ),
-                      const SizedBox(height: 50),
-                      Text(state.toString(),
+
+                      const SizedBox(height: 80),
+
+                      Text("${state.toString()}°C",
                           style: const TextStyle(fontSize: 35)),
-                      const SizedBox(height: 50),
+
+                      const SizedBox(height: 80),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -91,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-              ));
+              );
           },
         ));
   }
