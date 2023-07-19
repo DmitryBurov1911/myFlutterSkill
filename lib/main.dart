@@ -12,10 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
       theme: ThemeData(
-          scaffoldBackgroundColor: Colors.yellowAccent,
-          appBarTheme: const AppBarTheme(color: Colors.yellow),
+          scaffoldBackgroundColor: Colors.green[200],
+          appBarTheme: const AppBarTheme(color: Colors.green),
           textTheme: const TextTheme(
               titleMedium: TextStyle(color: Colors.black87, fontSize: 25),
               titleSmall: TextStyle(color: Colors.black45, fontSize: 18)

@@ -5,7 +5,7 @@ part 'calcur_event.dart';
 part 'calcur_state.dart';
 
 class CalcurBloc extends Bloc<CalcurEvent, String> {
-  CalcurBloc() : super("101") {
+  CalcurBloc() : super("190") {
     on<CalculIncrementEvent> (_onInc);
   }
 
